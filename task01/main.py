@@ -6,7 +6,7 @@ from time import sleep
 
 def track(path: str, interval: int) -> None:
     p = os.path.abspath(os.path.normpath(path))
-    psutil.Popen(p)
+    proc = psutil.Popen(p)
     pass
 
 

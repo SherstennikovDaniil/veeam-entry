@@ -10,7 +10,7 @@ def track(path: str, interval: int) -> None:
     name = (
         p.split("/")[0] + datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S") + ".csv"
     )
-    print(name)
+    writer = Writer(name)
     # shell=True and chmod +x fixed permission issues
     pid = psutil.Popen(p, shell=True).pid
     proc = psutil.Process(pid)

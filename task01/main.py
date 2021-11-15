@@ -11,4 +11,4 @@ def track(path: str, interval: int) -> List:
 if __name__ == "__main__":
     path = input("Введите путь: ")
     _int = int(input("Введите интервал: "))
-    track(p=path, interval=_int)
+    track(path=path, interval=_int)

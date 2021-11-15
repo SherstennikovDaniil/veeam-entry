@@ -5,13 +5,15 @@ from time import sleep
 
 
 def track(path: str, interval: int) -> None:
-    p = os.path.abspath(os.path.normpath(path))  # returned abspath just in case
+    p = os.path.normpath(path)  # removed abspath so can run any terminal commands
     pid = psutil.Popen(
         p, shell=True
     ).pid  # shell=True and chmod +x fixed permission issues
     proc = psutil.Process(pid)
-    with proc.oneshot():
-        print(proc.cpu_percent())
+    while True:
+        with proc.oneshot():
+            cpu = proc.cpu_percent()
+        sleep(interval)
     pass
 
 

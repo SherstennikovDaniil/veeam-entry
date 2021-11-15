@@ -22,6 +22,7 @@ def track(path: str, interval: int) -> None:
                 rss = mem[0]
                 vms = mem[1]
                 fds = proc.num_fds()
+            writer.write(cpu, rss, vms, fds)
             sleep(interval)
         except psutil.AccessDenied:
             print("Process finished.")
@@ -38,8 +39,12 @@ class Writer:
             )
             writer.writerow(["CPU", "RSS", "VMS", "FDS"])
 
-    def write(cpu, rss, vms) -> None:
-        pass
+    def write(self, cpu, rss, vms, fds) -> None:
+        with open(self.name, "a", newline="") as f:
+            writer = csv.writer(
+                f, delimiter=":", quotechar="|", quoting=csv.QUOTE_MINIMAL
+            )
+            writer.writerow([cpu, rss, vms, fds])
 
 
 if __name__ == "__main__":

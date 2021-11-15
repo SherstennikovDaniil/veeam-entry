@@ -13,6 +13,9 @@ def track(path: str, interval: int) -> None:
     while True:
         with proc.oneshot():
             cpu = proc.cpu_percent()
+            mem = proc.memory_full_info()
+            rss = mem[0]
+            vms = mem[1]
         sleep(interval)
     pass
 
@@ -22,6 +25,6 @@ def write_to_csv(smth):
 
 
 if __name__ == "__main__":
-    path = input("Введите путь: ")
-    _int = int(input("Введите интервал: "))
+    path = input("Path or command: ")
+    _int = int(input("Record interval (seconds): "))
     track(path=path, interval=_int)

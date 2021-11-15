@@ -5,10 +5,10 @@ from time import sleep
 
 
 def track(path: str, interval: int) -> None:
-    p = os.path.normpath(path)
-    proc = psutil.Popen(
+    p = os.path.abspath(os.path.normpath(path))  # returned abspath just in case
+    pid = psutil.Popen(
         p, shell=True
-    )  # shell=True and chmod +x fixed permission issues
+    ).pid  # shell=True and chmod +x fixed permission issues
     pass
 
 

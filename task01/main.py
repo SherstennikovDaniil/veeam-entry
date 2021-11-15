@@ -5,8 +5,10 @@ from time import sleep
 
 
 def track(path: str, interval: int) -> None:
-    p = os.path.abspath(os.path.normpath(path))
-    proc = psutil.Popen(p)
+    p = os.path.normpath(path)
+    proc = psutil.Popen(
+        p, shell=True
+    )  # shell=True and chmod +x fixed permission issues
     pass
 
 

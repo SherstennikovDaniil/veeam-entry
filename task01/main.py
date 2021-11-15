@@ -4,12 +4,13 @@ import datetime
 from time import sleep
 import csv
 
+from writer import Writer
+
 
 def track(path: str, interval: int) -> None:
     p = os.path.normpath(path)  # removed abspath so can run any terminal commands
-    name = (
-        p.split("/")[0] + datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S") + ".csv"
-    )
+    command = p.split("/")[0]
+    name = command + datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S") + ".csv"
     writer = Writer(name)
     # shell=True and chmod +x fixed permission issues
     pid = psutil.Popen(p, shell=True).pid
@@ -28,23 +29,6 @@ def track(path: str, interval: int) -> None:
             print("Process finished.")
             break
     pass
-
-
-class Writer:
-    def __init__(self, name) -> None:
-        self.name = name
-        with open(self.name, "w", newline="") as f:
-            writer = csv.writer(
-                f, delimiter=":", quotechar="|", quoting=csv.QUOTE_MINIMAL
-            )
-            writer.writerow(["CPU", "RSS", "VMS", "FDS"])
-
-    def write(self, cpu, rss, vms, fds) -> None:
-        with open(self.name, "a", newline="") as f:
-            writer = csv.writer(
-                f, delimiter=":", quotechar="|", quoting=csv.QUOTE_MINIMAL
-            )
-            writer.writerow([cpu, rss, vms, fds])
 
 
 if __name__ == "__main__":

@@ -4,8 +4,14 @@ import os
 from time import sleep
 
 
-def track(path: str, interval: int) -> List:
-    return
+def track(path: str, interval: int) -> None:
+    p = os.path.abspath(os.path.normpath(path))
+    psutil.Popen(p)
+    pass
+
+
+def write_to_csv(smth):
+    pass
 
 
 if __name__ == "__main__":

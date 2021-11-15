@@ -9,6 +9,9 @@ def track(path: str, interval: int) -> None:
     pid = psutil.Popen(
         p, shell=True
     ).pid  # shell=True and chmod +x fixed permission issues
+    proc = psutil.Process(pid)
+    with proc.oneshot():
+        print(proc.cpu_percent())
     pass
 
 

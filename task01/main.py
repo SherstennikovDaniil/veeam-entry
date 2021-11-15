@@ -1,14 +1,15 @@
-from typing import List, Mapping
 import psutil
 import os
 from time import sleep
+import csv
 
 
 def track(path: str, interval: int) -> None:
     p = os.path.normpath(path)  # removed abspath so can run any terminal commands
-    pid = psutil.Popen(
-        p, shell=True
-    ).pid  # shell=True and chmod +x fixed permission issues
+    name = ""
+
+    # shell=True and chmod +x fixed permission issues
+    pid = psutil.Popen(p, shell=True).pid
     proc = psutil.Process(pid)
     while True:
         with proc.oneshot():
@@ -20,8 +21,12 @@ def track(path: str, interval: int) -> None:
     pass
 
 
-def write_to_csv(smth):
-    pass
+class Writer:
+    def __init__(self) -> None:
+        pass
+
+    def write(cpu, rss, vms) -> None:
+        pass
 
 
 if __name__ == "__main__":
